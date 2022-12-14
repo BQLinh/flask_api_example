@@ -8,3 +8,4 @@ class User(db.Model):
     is_active = db.Column(db.Boolean)
     password = db.Column(db.String(256))
     age = db.Column(db.Integer)
+    blog = db.relationship('Blog', back_populates='author')

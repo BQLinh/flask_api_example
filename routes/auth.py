@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 
 BP = Blueprint('auth', __name__)
 from common.auth import check_dupplicate_email
@@ -14,7 +14,7 @@ def register():
     data = request.get_json()
     schema = auth_schema.load(data)
     if check_dupplicate_email(schema['email']):
-        return 'Email already exist'
+        return 'Email already exist', 400
     user = User(**schema)
     db.session.add(user)
     db.session.commit()
@@ -29,10 +29,10 @@ def login():
     user = User.query.filter_by(email=email).first()
 
     if user is None:
-        return 'This user is not exit'
+        return jsonify({'result': 'This user is not exit'}), 400
     
     if user.password != schema['password']:
-        return 'Wrong password'
+        return {'result': 'Wrong password'}, 400
     
     token = JWT_Token()
     return token.generate_token(user)
@@ -41,4 +41,4 @@ def login():
 @BP.route('/info', methods=['GET'])
 @login_required
 def get_user():
-    return {'result': 'ok'}
+    return {'result': 'ok'}, 200

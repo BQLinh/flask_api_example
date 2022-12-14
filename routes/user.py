@@ -12,10 +12,10 @@ def index():
     return user_schema.dump(User.query.get(0))
 
 
-@BP.route('/', methods=['POST'])
+@BP.route('/create_user', methods=['POST'])
 def create_user():
     data = request.data
-    user = User(username='linh', email='linh@gmail.com')
+    user = User(name='linh', email='linh@gmail.com')
     db.session.add(user)
     db.session.commit()
     return user_schema.dump(user)
