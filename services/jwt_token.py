@@ -39,7 +39,7 @@ class JWT_Token:
             return {'error': 'token is expired'}
         except Exception as e:
             print(e)
-            return {'error': 'error decoding token'}
+            return {'Error': 'error decoding token'}
 
 
 
