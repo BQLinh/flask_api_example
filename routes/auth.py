@@ -41,4 +41,4 @@ def login():
 @BP.route('/info', methods=['GET'])
 @login_required
 def get_user():
-    return {'result': 'okeeeeeeeeee'}, 200
+    return {'result': 'okeeeeeeesdfsdeee'}, 200
