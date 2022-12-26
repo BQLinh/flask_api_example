@@ -52,3 +52,11 @@ def blog_detail():
     print(blog.blog_comment)
 
     return blog_schema.dump(blog_detail)
+
+@BP.route('/blog1', methods=['POST'])
+def create_user():
+    data = request.data
+    blog = Blog(title='this blog', content='this content', author_id=1)
+    db.session.add(blog)
+    db.session.commit()
+    return blog_schema.dump(blog)
